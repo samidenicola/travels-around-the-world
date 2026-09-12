@@ -7,22 +7,57 @@ import { escapeHtml } from '../utils.js'
 const rotations = [-3, 1, -1.5, 2.5, -0.5, 3, -2, 1.5]
 
 const PIN_SVG_CURRENT = `<svg viewBox="0 0 40 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <line x1="20" y1="22" x2="20" y2="57" stroke="#a0a0a0" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="20" cy="16" r="15.5" fill="#c0392b"/>
-  <circle cx="15" cy="10" r="4.5" fill="#e74c3c" opacity="0.45"/>
-  <circle cx="20" cy="16" r="5.5" fill="#fdf6e3" opacity="0.3"/>
+  <defs>
+    <radialGradient id="sphereGrad-current" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#e74c3c"/>
+      <stop offset="50%" stop-color="#c0392b"/>
+      <stop offset="100%" stop-color="#962d22"/>
+    </radialGradient>
+    <linearGradient id="stickGrad-current" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b0b0b0"/>
+      <stop offset="100%" stop-color="#888"/>
+    </linearGradient>
+  </defs>
+  <line x1="20" y1="35" x2="20" y2="56" stroke="url(#stickGrad-current)" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="20.8" y1="36" x2="20.8" y2="55" stroke="rgba(0,0,0,0.1)" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="20" cy="19" r="18" fill="url(#sphereGrad-current)"/>
+  <ellipse cx="14" cy="13" rx="6" ry="5" fill="rgba(255,255,255,0.18)"/>
 </svg>`
 
-const PIN_SVG_VISITED = `<svg viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <line x1="12" y1="14" x2="12" y2="35" stroke="#a8a8a8" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="12" cy="11" r="10.5" fill="#cc7722"/>
-  <circle cx="9" cy="7.5" r="3" fill="#e8943a" opacity="0.4"/>
+const PIN_SVG_VISITED = `<svg viewBox="0 0 28 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="sphereGrad-visited" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#e8943a"/>
+      <stop offset="50%" stop-color="#cc7722"/>
+      <stop offset="100%" stop-color="#a85e15"/>
+    </radialGradient>
+    <linearGradient id="stickGrad-visited" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b8b8b8"/>
+      <stop offset="100%" stop-color="#999"/>
+    </linearGradient>
+  </defs>
+  <line x1="14" y1="25" x2="14" y2="40" stroke="url(#stickGrad-visited)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="14.6" y1="26" x2="14.6" y2="39" stroke="rgba(0,0,0,0.08)" stroke-width="1" stroke-linecap="round"/>
+  <circle cx="14" cy="14" r="12" fill="url(#sphereGrad-visited)"/>
+  <ellipse cx="10" cy="10" rx="4" ry="3.5" fill="rgba(255,255,255,0.16)"/>
 </svg>`
 
-const PIN_SVG_STOP = `<svg viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <line x1="12" y1="14" x2="12" y2="35" stroke="#a8a8a8" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 2"/>
-  <circle cx="12" cy="11" r="10.5" fill="#4a9ea6"/>
-  <circle cx="9" cy="7.5" r="3" fill="#6bbac2" opacity="0.35"/>
+const PIN_SVG_STOP = `<svg viewBox="0 0 28 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="sphereGrad-stop" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#6bbac2"/>
+      <stop offset="50%" stop-color="#4a9ea6"/>
+      <stop offset="100%" stop-color="#387b82"/>
+    </radialGradient>
+    <linearGradient id="stickGrad-stop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b8b8b8"/>
+      <stop offset="100%" stop-color="#999"/>
+    </linearGradient>
+  </defs>
+  <line x1="14" y1="25" x2="14" y2="40" stroke="url(#stickGrad-stop)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 2.5"/>
+  <line x1="14.6" y1="26" x2="14.6" y2="39" stroke="rgba(0,0,0,0.06)" stroke-width="1" stroke-linecap="round" stroke-dasharray="3 2.5"/>
+  <circle cx="14" cy="14" r="12" fill="url(#sphereGrad-stop)"/>
+  <ellipse cx="10" cy="10" rx="4" ry="3.5" fill="rgba(255,255,255,0.14)"/>
 </svg>`
 
 let placementMode = null

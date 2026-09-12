@@ -7,21 +7,42 @@ export function getMapContainer() {
 }
 
 const LEGEND_PIN_CURRENT = `<svg viewBox="0 0 20 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <line x1="10" y1="12" x2="10" y2="29" stroke="#a0a0a0" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="10" cy="9" r="8.5" fill="#c0392b"/>
-  <circle cx="7.5" cy="6" r="2.5" fill="#e74c3c" opacity="0.4"/>
+  <defs>
+    <radialGradient id="legendSphere-current" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#e74c3c"/>
+      <stop offset="50%" stop-color="#c0392b"/>
+      <stop offset="100%" stop-color="#962d22"/>
+    </radialGradient>
+  </defs>
+  <line x1="10" y1="17" x2="10" y2="29" stroke="#aaa" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="10" cy="10" r="9" fill="url(#legendSphere-current)"/>
+  <ellipse cx="7.5" cy="7" rx="3" ry="2.5" fill="rgba(255,255,255,0.18)"/>
 </svg>`
 
 const LEGEND_PIN_VISITED = `<svg viewBox="0 0 20 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <line x1="10" y1="12" x2="10" y2="29" stroke="#a8a8a8" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="10" cy="9" r="8.5" fill="#cc7722"/>
-  <circle cx="7.5" cy="6" r="2.5" fill="#e8943a" opacity="0.35"/>
+  <defs>
+    <radialGradient id="legendSphere-visited" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#e8943a"/>
+      <stop offset="50%" stop-color="#cc7722"/>
+      <stop offset="100%" stop-color="#a85e15"/>
+    </radialGradient>
+  </defs>
+  <line x1="10" y1="17" x2="10" y2="29" stroke="#b0b0b0" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="10" cy="10" r="9" fill="url(#legendSphere-visited)"/>
+  <ellipse cx="7.5" cy="7" rx="3" ry="2.5" fill="rgba(255,255,255,0.16)"/>
 </svg>`
 
 const LEGEND_PIN_STOP = `<svg viewBox="0 0 20 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <line x1="10" y1="12" x2="10" y2="29" stroke="#a8a8a8" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 2"/>
-  <circle cx="10" cy="9" r="8.5" fill="#4a9ea6"/>
-  <circle cx="7.5" cy="6" r="2.5" fill="#6bbac2" opacity="0.3"/>
+  <defs>
+    <radialGradient id="legendSphere-stop" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#6bbac2"/>
+      <stop offset="50%" stop-color="#4a9ea6"/>
+      <stop offset="100%" stop-color="#387b82"/>
+    </radialGradient>
+  </defs>
+  <line x1="10" y1="17" x2="10" y2="29" stroke="#b0b0b0" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 2"/>
+  <circle cx="10" cy="10" r="9" fill="url(#legendSphere-stop)"/>
+  <ellipse cx="7.5" cy="7" rx="3" ry="2.5" fill="rgba(255,255,255,0.14)"/>
 </svg>`
 
 export function initMapSurface(container) {
