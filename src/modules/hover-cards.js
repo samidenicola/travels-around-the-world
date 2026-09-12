@@ -6,6 +6,7 @@ let layer = null
 let currentCard = null
 let isPinned = false
 let hideTimeout = null
+let galleryOverlay = null
 
 const WASHI_COLORS = ['--washi-purple', '--washi-pink', '--washi-blue', '--tape-yellow']
 
@@ -26,6 +27,14 @@ export function initHoverCards(container) {
   layer = document.createElement('div')
   layer.className = 'hover-card-layer'
   container.appendChild(layer)
+
+  galleryOverlay = document.createElement('div')
+  galleryOverlay.className = 'photo-gallery-overlay'
+  container.appendChild(galleryOverlay)
+
+  galleryOverlay.addEventListener('click', (e) => {
+    if (e.target === galleryOverlay) closeGallery()
+  })
 
   document.addEventListener('click', (e) => {
     if (isPinned && currentCard && !currentCard.contains(e.target)) {
@@ -58,6 +67,47 @@ function createPhotoCorners() {
     frag.appendChild(corner)
   })
   return frag
+}
+
+function openGallery(data) {
+  if (!galleryOverlay) return
+  const images = (data.image_urls || []).map(u => sanitizeUrl(u)).filter(Boolean)
+  if (images.length === 0) return
+
+  let dateStr = ''
+  if (data.date_from) {
+    dateStr = data.date_from === data.date_to
+      ? escapeHtml(data.date_from)
+      : `${escapeHtml(data.date_from)}${data.date_to ? ' - ' + escapeHtml(data.date_to) : ''}`
+  }
+
+  galleryOverlay.innerHTML = `
+    <div class="photo-gallery">
+      <button class="photo-gallery-close" aria-label="Close">&times;</button>
+      <div class="photo-gallery-header">
+        <div class="photo-gallery-city">${escapeHtml(data.city)}</div>
+        <div class="photo-gallery-country">${escapeHtml(data.country)}</div>
+        ${dateStr ? `<div class="photo-gallery-dates">${dateStr}</div>` : ''}
+      </div>
+      <div class="photo-gallery-grid">
+        ${images.map((url, i) => `
+          <div class="photo-gallery-frame" style="transform: rotate(${(Math.random() - 0.5) * 6}deg)">
+            <img src="${escapeHtml(url)}" alt="${escapeHtml(data.city)} photo ${i + 1}" loading="lazy" />
+            <div class="photo-gallery-frame-border"></div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `
+
+  galleryOverlay.classList.add('open')
+  galleryOverlay.querySelector('.photo-gallery-close').addEventListener('click', closeGallery)
+}
+
+function closeGallery() {
+  if (galleryOverlay) {
+    galleryOverlay.classList.remove('open')
+  }
 }
 
 export function showHoverCard(data, type, point, pin = false) {
@@ -108,14 +158,20 @@ export function showHoverCard(data, type, point, pin = false) {
       html += `<div class="hover-card-dates">${dateStr}</div>`
     }
     if (data.image_urls && data.image_urls.length > 0) {
-      html += '<div class="hover-card-images">'
-      data.image_urls.slice(0, 3).forEach(url => {
+      html += '<div class="hover-card-polaroid-stack">'
+      data.image_urls.slice(0, 3).forEach((url, i) => {
         const safeUrl = sanitizeUrl(url)
         if (safeUrl) {
-          html += `<img src="${escapeHtml(safeUrl)}" alt="${escapeHtml(data.city)}" loading="lazy" />`
+          const rot = (Math.random() - 0.5) * 8
+          html += `<div class="hover-card-polaroid" style="transform: rotate(${rot}deg); z-index: ${3 - i};">
+            <img src="${escapeHtml(safeUrl)}" alt="${escapeHtml(data.city)}" loading="lazy" />
+          </div>`
         }
       })
       html += '</div>'
+      if (data.image_urls.length > 0) {
+        html += '<button class="hover-card-view-photos">view photos</button>'
+      }
     }
     body.innerHTML = html
   } else if (type === 'stop') {
@@ -165,6 +221,14 @@ export function showHoverCard(data, type, point, pin = false) {
     card.querySelector('.hover-card-dismiss')?.addEventListener('click', (e) => {
       e.stopPropagation()
       removeCard()
+    })
+  }
+
+  const viewPhotosBtn = card.querySelector('.hover-card-view-photos')
+  if (viewPhotosBtn) {
+    viewPhotosBtn.addEventListener('click', (e) => {
+      e.stopPropagation()
+      openGallery(data)
     })
   }
 }

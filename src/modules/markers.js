@@ -6,28 +6,27 @@ import { escapeHtml } from '../utils.js'
 
 const rotations = [-3, 1, -1.5, 2.5, -0.5, 3, -2, 1.5]
 
-const handDrawnXVariants = [
-  `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 6Q16 15 25 25" stroke="var(--terracotta)" stroke-width="2.5" stroke-linecap="round"/>
-    <path d="M25 7Q15 16 6 24" stroke="var(--terracotta)" stroke-width="2.5" stroke-linecap="round"/>
-  </svg>`,
-  `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6 7Q13 14 14 16Q15 18 26 26" stroke="var(--terracotta)" stroke-width="3" stroke-linecap="round"/>
-    <path d="M26 6Q18 13 16 15Q14 17 5 25" stroke="var(--terracotta)" stroke-width="2.2" stroke-linecap="round"/>
-  </svg>`,
-  `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M8 5Q14 12 16 17Q18 22 24 27" stroke="var(--sienna)" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M24 6Q19 11 16 15Q13 19 7 26" stroke="var(--sienna)" stroke-width="2" stroke-linecap="round"/>
-  </svg>`,
-  `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 8Q12 13 15 16Q19 20 25 24" stroke="var(--terracotta)" stroke-width="2.8" stroke-linecap="round"/>
-    <path d="M24 7Q20 11 17 15Q13 19 8 25" stroke="var(--terracotta)" stroke-width="3.2" stroke-linecap="round"/>
-  </svg>`,
-  `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6 6Q10 11 15 16Q20 21 26 26" stroke="var(--sienna)" stroke-width="2.3" stroke-linecap="round"/>
-    <path d="M26 5Q21 10 17 15Q12 20 5 26" stroke="var(--sienna)" stroke-width="3.8" stroke-linecap="round"/>
-  </svg>`,
-]
+const PIN_SVG_CURRENT = `<svg viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M18 0.5C8.5 0.5 0.8 8 0.8 17.3C0.8 30 18 43.5 18 43.5S35.2 30 35.2 17.3C35.2 8 27.5 0.5 18 0.5Z
+           M17.5 1.2C9 1.5 1.5 8.5 1.5 17.3C1.5 29.5 17.5 42.5 18 43
+           C18.5 42.5 34.5 29.5 34.5 17.3C34.5 8.5 27 1.5 18.5 1.2" fill="#c0392b"/>
+  <path d="M3 16Q5 10 10 6" stroke="#e74c3c" stroke-width="0.8" opacity="0.4" fill="none"/>
+  <circle cx="18" cy="16" r="7.5" fill="#fdf6e3" opacity="0.9"/>
+  <path d="M18 11.5C16.5 11.5 15.2 12.3 14.5 13.5C13.8 14.7 13.8 16 14.5 17.2L18 22L21.5 17.2C22.2 16 22.2 14.7 21.5 13.5C20.8 12.3 19.5 11.5 18 11.5Z" fill="#c0392b" opacity="0.85"/>
+  <path d="M15.5 12.5C16 11.5 17 10.8 18 10.8C19 10.8 20 11.5 20.5 12.5" stroke="#e74c3c" stroke-width="0.5" opacity="0.4" fill="none"/>
+</svg>`
+
+const PIN_SVG_VISITED = `<svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 0.5C5.8 0.5 0.8 5.3 0.8 11.3C0.8 19.8 12 31.5 12 31.5S23.2 19.8 23.2 11.3C23.2 5.3 18.2 0.5 12 0.5Z" fill="#c8884d"/>
+  <path d="M2.5 10Q4 6 7.5 3.5" stroke="#d4994f" stroke-width="0.6" opacity="0.3" fill="none"/>
+  <circle cx="12" cy="10.5" r="4.5" fill="#fdf6e3" opacity="0.7"/>
+</svg>`
+
+const PIN_SVG_STOP = `<svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 0.5C5.8 0.5 0.8 5.3 0.8 11.3C0.8 19.8 12 31.5 12 31.5S23.2 19.8 23.2 11.3C23.2 5.3 18.2 0.5 12 0.5Z" fill="#9ba8b7" stroke="#8895a5" stroke-width="0.5" stroke-dasharray="2 1.5"/>
+  <path d="M2.5 10Q4 6 7.5 3.5" stroke="#a5b0bd" stroke-width="0.6" opacity="0.25" fill="none"/>
+  <circle cx="12" cy="10.5" r="4.5" fill="#fdf6e3" opacity="0.5"/>
+</svg>`
 
 let placementMode = null
 let placementCallback = null
@@ -43,17 +42,7 @@ function createCurrentPin(loc) {
     <div class="marker-current">
       <div class="marker-current-ring"></div>
       <div class="marker-current-ring"></div>
-      <div class="marker-current-pin">
-        <svg viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 0.5C8.5 0.5 0.8 8 0.8 17.3C0.8 30 18 43.5 18 43.5S35.2 30 35.2 17.3C35.2 8 27.5 0.5 18 0.5Z
-                   M17.5 1.2C9 1.5 1.5 8.5 1.5 17.3C1.5 29.5 17.5 42.5 18 43
-                   C18.5 42.5 34.5 29.5 34.5 17.3C34.5 8.5 27 1.5 18.5 1.2" fill="#c0392b"/>
-          <path d="M3 16Q5 10 10 6" stroke="#e74c3c" stroke-width="0.8" opacity="0.4" fill="none"/>
-          <circle cx="18" cy="16" r="7.5" fill="#fdf6e3" opacity="0.9"/>
-          <path d="M18 11.5C16.5 11.5 15.2 12.3 14.5 13.5C13.8 14.7 13.8 16 14.5 17.2L18 22L21.5 17.2C22.2 16 22.2 14.7 21.5 13.5C20.8 12.3 19.5 11.5 18 11.5Z" fill="#c0392b" opacity="0.85"/>
-          <path d="M15.5 12.5C16 11.5 17 10.8 18 10.8C19 10.8 20 11.5 20.5 12.5" stroke="#e74c3c" stroke-width="0.5" opacity="0.4" fill="none"/>
-        </svg>
-      </div>
+      <div class="marker-current-pin">${PIN_SVG_CURRENT}</div>
       <div class="marker-current-label">${safeCity}</div>
     </div>
   `
@@ -63,17 +52,13 @@ function createCurrentPin(loc) {
 function createVisitedPin(place, index) {
   const safeCity = escapeHtml(place.city)
   const rot = rotations[index % rotations.length]
-  const xVariant = handDrawnXVariants[index % handDrawnXVariants.length]
   const pin = document.createElement('div')
   pin.className = 'map-pin map-pin--visited'
   pin.style.left = `${place.x_pct}%`
   pin.style.top = `${place.y_pct}%`
   pin.innerHTML = `
     <div class="marker-visited" style="--float-delay: ${index * 0.5}s; --rot: ${rot}deg">
-      <div class="marker-visited-x" style="transform: rotate(${rot}deg)">
-        <span class="marker-visited-watercolor"></span>
-        ${xVariant}
-      </div>
+      <div class="marker-visited-pin">${PIN_SVG_VISITED}</div>
       <div class="marker-visited-label">${safeCity}</div>
     </div>
   `
@@ -89,12 +74,7 @@ function createStopPin(stop, index) {
   pin.style.top = `${stop.y_pct}%`
   pin.innerHTML = `
     <div class="marker-stop" style="--bob-delay: ${delay}s">
-      <div class="marker-stop-icon">
-        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="14" cy="14" r="11" stroke="#d4a843" stroke-width="2" stroke-dasharray="4 3" fill="rgba(212, 168, 67, 0.1)"/>
-          <text x="14" y="18" text-anchor="middle" font-family="Caveat, cursive" font-size="14" font-weight="700" fill="#d4a843">?</text>
-        </svg>
-      </div>
+      <div class="marker-stop-pin">${PIN_SVG_STOP}</div>
       <div class="marker-stop-label">${safeCity}</div>
     </div>
   `

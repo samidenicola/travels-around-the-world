@@ -102,6 +102,7 @@ export async function adminAction(action, passphrase, data = {}) {
       const notes = getDemoNotes()
       return { notes, count: notes.length }
     }
+    if (action === 'upload_photo') return { url: '', success: true }
     return { success: true }
   }
   const publishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
@@ -116,4 +117,15 @@ export async function adminAction(action, passphrase, data = {}) {
   const result = await res.json()
   if (!res.ok || result?.error) throw new Error(result?.error || `HTTP ${res.status}`)
   return result
+}
+
+export async function uploadPhoto(passphrase, locationId, base64Data, fileName, mimeType) {
+  return adminAction('upload_photo', passphrase, {
+    data: {
+      location_id: locationId,
+      image_base64: base64Data,
+      file_name: fileName,
+      mime_type: mimeType,
+    }
+  })
 }

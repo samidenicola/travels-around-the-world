@@ -1,6 +1,6 @@
 // ============================================================
 // Edge Function: "admin"
-// Deploy via Supabase dashboard → Edge Functions → New Function
+// Deploy via Supabase dashboard -> Edge Functions -> New Function
 // Name it "admin"
 // Paste this entire file into the editor
 // ============================================================
@@ -25,6 +25,15 @@ function json(body: unknown, status = 200) {
     status,
     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   })
+}
+
+function base64ToUint8Array(base64: string): Uint8Array {
+  const binaryString = atob(base64)
+  const bytes = new Uint8Array(binaryString.length)
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i)
+  }
+  return bytes
 }
 
 Deno.serve(async (req) => {
@@ -190,6 +199,51 @@ Deno.serve(async (req) => {
           .eq('id', data.id)
         if (error) return json({ error: error.message }, 500)
         return json({ success: true })
+      }
+
+      case 'upload_photo': {
+        const { location_id, image_base64, file_name, mime_type } = data
+        if (!location_id || !image_base64) {
+          return json({ error: 'location_id and image_base64 required' }, 400)
+        }
+
+        const ext = file_name?.split('.').pop() || 'jpg'
+        const storagePath = `${location_id}/${crypto.randomUUID()}.${ext}`
+        const fileBytes = base64ToUint8Array(image_base64)
+
+        const { error: uploadError } = await supabase.storage
+          .from('location-photos')
+          .upload(storagePath, fileBytes, {
+            contentType: mime_type || 'image/jpeg',
+            upsert: false,
+          })
+
+        if (uploadError) return json({ error: uploadError.message }, 500)
+
+        const { data: urlData } = supabase.storage
+          .from('location-photos')
+          .getPublicUrl(storagePath)
+
+        const publicUrl = urlData?.publicUrl
+        if (!publicUrl) return json({ error: 'Failed to get public URL' }, 500)
+
+        const { data: place } = await supabase
+          .from('visited_places')
+          .select('image_urls')
+          .eq('id', location_id)
+          .single()
+
+        const existingUrls = place?.image_urls || []
+        const updatedUrls = [...existingUrls, publicUrl]
+
+        const { error: updateError } = await supabase
+          .from('visited_places')
+          .update({ image_urls: updatedUrls })
+          .eq('id', location_id)
+
+        if (updateError) return json({ error: updateError.message }, 500)
+
+        return json({ success: true, url: publicUrl })
       }
 
       case 'export_notes': {

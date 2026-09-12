@@ -91,10 +91,13 @@
   pointer-events: none;
 }
 
+/* ---- Top bar ---- */
+
 .dashboard-top {
-  padding: 20px 20px 0;
+  padding: 20px 20px 16px;
   position: relative;
   z-index: 1;
+  border-bottom: 2px solid var(--kraft);
 }
 
 .dashboard-title-row {
@@ -108,6 +111,12 @@
   font-weight: 700;
   font-size: 30px;
   color: var(--text-brown);
+}
+
+.dashboard-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .dashboard-close {
@@ -128,111 +137,12 @@
   transform: scale(1.1);
 }
 
-.dashboard-tabs {
-  display: flex;
-  gap: 3px;
-  margin-top: 16px;
-  border-bottom: 2px solid var(--kraft);
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding-left: 4px;
-  align-items: flex-end;
-}
-
-.dashboard-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.dashboard-tab {
-  flex-shrink: 0;
-  border: 1px solid transparent;
-  border-bottom: none;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--text-brown-light);
-  padding: 7px 14px 6px;
-  cursor: pointer;
-  position: relative;
-  transition: color 0.2s, background 0.2s, transform 0.2s, opacity 0.2s;
-  white-space: nowrap;
-  border-radius: 10px 10px 0 0;
-  opacity: 0.7;
-  background-image:
-    repeating-linear-gradient(
-      35deg,
-      transparent 0px,
-      transparent 2px,
-      rgba(255, 255, 255, 0.08) 2px,
-      rgba(255, 255, 255, 0.08) 3px
-    );
-}
-
-.dashboard-tab[data-tab="notes"] {
-  background-color: rgba(195, 155, 211, 0.35);
-  border-color: rgba(195, 155, 211, 0.3);
-  transform: rotate(-0.8deg);
-}
-.dashboard-tab[data-tab="location"] {
-  background-color: rgba(241, 148, 138, 0.35);
-  border-color: rgba(241, 148, 138, 0.3);
-  transform: rotate(0.6deg);
-}
-.dashboard-tab[data-tab="visited"] {
-  background-color: rgba(133, 193, 233, 0.35);
-  border-color: rgba(133, 193, 233, 0.3);
-  transform: rotate(-0.4deg);
-}
-.dashboard-tab[data-tab="stops"] {
-  background-color: rgba(212, 168, 67, 0.35);
-  border-color: rgba(212, 168, 67, 0.3);
-  transform: rotate(0.9deg);
-}
-.dashboard-tab[data-tab="export"] {
-  background-color: rgba(245, 230, 163, 0.45);
-  border-color: rgba(245, 230, 163, 0.4);
-  transform: rotate(-0.5deg);
-}
-
-.dashboard-tab:hover {
-  color: var(--text-brown);
-  opacity: 0.85;
-}
-
-.dashboard-tab.active {
-  color: var(--text-brown);
-  opacity: 1;
-  font-size: 16px;
-  padding: 9px 16px 8px;
-  margin-bottom: -2px;
-  z-index: 1;
-}
-
-.dashboard-tab.active[data-tab="notes"] {
-  background-color: rgba(195, 155, 211, 0.65);
-  border-color: rgba(195, 155, 211, 0.5);
-}
-.dashboard-tab.active[data-tab="location"] {
-  background-color: rgba(241, 148, 138, 0.65);
-  border-color: rgba(241, 148, 138, 0.5);
-}
-.dashboard-tab.active[data-tab="visited"] {
-  background-color: rgba(133, 193, 233, 0.65);
-  border-color: rgba(133, 193, 233, 0.5);
-}
-.dashboard-tab.active[data-tab="stops"] {
-  background-color: rgba(212, 168, 67, 0.65);
-  border-color: rgba(212, 168, 67, 0.5);
-}
-.dashboard-tab.active[data-tab="export"] {
-  background-color: rgba(245, 230, 163, 0.75);
-  border-color: rgba(245, 230, 163, 0.6);
-}
+/* ---- Scrollable content area ---- */
 
 .dashboard-content {
   flex: 1;
   overflow-y: auto;
-  padding: 16px 20px 20px;
+  padding: 0;
   position: relative;
   z-index: 1;
   background-image:
@@ -246,12 +156,298 @@
   background-size: 100% 24px;
 }
 
-.dash-section-title {
+/* ---- Sections (stacked sheets) ---- */
+
+.dash-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--kraft);
+}
+
+.dash-section:last-child {
+  border-bottom: none;
+}
+
+/* ---- Section headers (expand/collapse) ---- */
+
+.dash-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 8px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 22px;
+  font-size: 20px;
   color: var(--text-brown);
+  transition: background 0.2s;
+}
+
+.dash-section-header:hover {
+  background: rgba(232, 213, 183, 0.25);
+}
+
+.dash-section-header-text {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.dash-section-count {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-brown-light);
+  font-weight: 400;
+}
+
+.dash-section-chevron {
+  font-size: 12px;
+  color: var(--text-brown-light);
+  transition: transform 0.3s ease;
+}
+
+/* ---- Collapsible body ---- */
+
+.dash-section-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+  opacity: 0;
+  padding-top: 0;
+}
+
+.dash-section-body.expanded {
+  max-height: 3000px;
+  opacity: 1;
+  padding-top: 12px;
+}
+
+/* ---- Accent colors for sections ---- */
+
+.dash-accent--visited {
+  border-left: 3px solid rgba(200, 136, 77, 0.5);
+}
+
+.dash-accent--stops {
+  border-left: 3px solid rgba(155, 168, 183, 0.5);
+}
+
+.dash-accent--notes {
+  border-left: 3px solid var(--washi-purple);
+}
+
+.dash-accent--export {
+  border-left: 3px solid var(--tape-yellow);
+}
+
+/* ---- Section 1: Current location card ---- */
+
+.dash-section--current {
+  background: rgba(192, 57, 43, 0.04);
+}
+
+.dash-current-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: var(--cream);
+  border: 2px solid rgba(192, 57, 43, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-warm);
   margin-bottom: 12px;
+}
+
+.dash-current-pin-icon {
+  flex-shrink: 0;
+}
+
+.dash-current-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-brown-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dash-current-city {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--text-brown);
+  line-height: 1.1;
+}
+
+.dash-current-country {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-brown-light);
+}
+
+/* ---- "we moved" button & form ---- */
+
+.dash-move-form {
+  margin-bottom: 12px;
+  padding: 12px;
+  background: rgba(232, 213, 183, 0.15);
+  border-radius: 8px;
+  border: 1px dashed var(--kraft);
+  animation: fadeInUp 0.25s ease-out;
+}
+
+/* ---- Visited place cards ---- */
+
+.dash-visited-card {
+  background: var(--cream);
+  border: 1px solid rgba(200, 136, 77, 0.3);
+  border-left: 3px solid rgba(200, 136, 77, 0.5);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 6px var(--shadow-warm);
+  animation: fadeInUp 0.2s ease-out;
+}
+
+.dash-visited-city {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-brown);
+}
+
+.dash-visited-country {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-brown-light);
+}
+
+.dash-visited-dates {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--sienna);
+  margin-top: 2px;
+}
+
+.dash-visited-thumbs {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.dash-visited-thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border: 2px solid var(--cream);
+  box-shadow: 0 1px 4px var(--shadow-warm);
+  border-radius: 2px;
+  transform: rotate(-1deg);
+}
+
+.dash-visited-thumb:nth-child(2) {
+  transform: rotate(1.5deg);
+}
+
+.dash-visited-thumb:nth-child(3) {
+  transform: rotate(-0.5deg);
+}
+
+.dash-visited-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.dash-visited-edit-area {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--kraft);
+  animation: fadeInUp 0.2s ease-out;
+}
+
+.dash-visited-upload-status {
+  margin-top: 6px;
+}
+
+/* ---- Stop cards ---- */
+
+.dash-stop-card {
+  background: var(--cream);
+  border: 1px dashed rgba(155, 168, 183, 0.5);
+  border-left: 3px solid rgba(155, 168, 183, 0.5);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  animation: fadeInUp 0.2s ease-out;
+}
+
+.dash-stop-info {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-brown);
+}
+
+.dash-stop-info strong {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.dash-stop-note {
+  font-size: 13px;
+  color: var(--text-brown-light);
+  font-style: italic;
+}
+
+.dash-stop-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.dash-stop-edit-area {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--kraft);
+  animation: fadeInUp 0.2s ease-out;
+}
+
+.dash-add-stop-area {
+  margin-top: 12px;
+}
+
+/* ---- Notes ---- */
+
+.dash-notes-search {
+  margin-bottom: 12px;
+}
+
+.dash-notes-search-input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--kraft);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-brown);
+  padding: 8px 4px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.dash-notes-search-input:focus {
+  border-color: var(--sienna);
+}
+
+.dash-notes-search-input::placeholder {
+  color: var(--kraft);
+  font-style: italic;
 }
 
 .dash-note-card {
@@ -340,7 +536,15 @@
   margin-top: 8px;
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
 }
+
+.dash-note-location {
+  color: var(--sienna);
+  opacity: 0.8;
+}
+
+/* ---- Shared form styles ---- */
 
 .dash-form-group {
   margin-bottom: 14px;
@@ -385,6 +589,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
+
+/* ---- Buttons ---- */
 
 .dash-btn {
   display: inline-flex;
@@ -447,23 +653,37 @@
   margin-bottom: 10px;
 }
 
+.dash-btn--ghost {
+  background: none;
+  color: var(--text-brown-light);
+  box-shadow: none;
+  border: 1px solid var(--kraft);
+}
+
+.dash-btn--ghost:hover {
+  background: rgba(232, 213, 183, 0.2);
+  color: var(--text-brown);
+}
+
 .dash-btn--move {
   display: block;
   width: 100%;
-  background: none;
-  border: 2px dashed var(--kraft);
-  color: var(--sienna);
-  font-family: var(--font-body);
-  font-size: 15px;
-  padding: 10px 16px;
+  background: var(--stamp-red);
+  color: white;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  padding: 12px 20px;
+  border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px var(--shadow-warm);
 }
 
 .dash-btn--move:hover {
-  background: rgba(160, 82, 45, 0.06);
-  border-color: var(--sienna);
+  background: var(--terracotta);
+  transform: scale(1.02);
 }
 
 .dash-btn--arrive {
@@ -477,39 +697,36 @@
   border-color: #c49a2f;
 }
 
-.dash-stop-actions {
-  display: flex;
-  gap: 6px;
-  flex-shrink: 0;
-}
-
-.dash-geo-results {
-  background: var(--cream);
-  border: 1px solid var(--kraft);
-  border-radius: 6px;
-  margin-top: 4px;
-  max-height: 150px;
-  overflow-y: auto;
-  box-shadow: 0 4px 12px var(--shadow-warm);
-}
-
-.dash-geo-result {
-  padding: 8px 12px;
+.dash-btn--add {
+  display: block;
+  width: 100%;
+  background: none;
+  border: 2px dashed rgba(155, 168, 183, 0.5);
+  color: var(--text-brown-light);
   font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--text-brown);
+  font-size: 15px;
+  padding: 10px 16px;
+  border-radius: 8px;
   cursor: pointer;
-  border-bottom: 1px solid var(--cream-dark);
-  transition: background 0.15s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  box-shadow: none;
 }
 
-.dash-geo-result:hover {
-  background: var(--cream-dark);
+.dash-btn--add:hover {
+  background: rgba(155, 168, 183, 0.08);
+  border-color: rgba(155, 168, 183, 0.7);
+  color: var(--text-brown);
 }
 
-.dash-geo-result:last-child {
-  border-bottom: none;
+.dash-form-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 4px;
+  flex-wrap: wrap;
 }
+
+/* ---- Status messages ---- */
 
 .dash-success {
   background: rgba(46, 204, 113, 0.1);
@@ -535,103 +752,50 @@
   animation: shake 0.4s ease;
 }
 
-.dash-stop-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.dash-stop-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--cream);
-  border: 1px dashed var(--warm-gold);
+.dash-info {
+  background: rgba(133, 193, 233, 0.15);
+  border: 1px solid rgba(133, 193, 233, 0.3);
   border-radius: 6px;
   padding: 10px 14px;
-  animation: fadeInUp 0.3s ease-out;
-}
-
-.dash-stop-info {
   font-family: var(--font-body);
-  font-size: 15px;
-  color: var(--text-brown);
-}
-
-.dash-stop-info strong {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 17px;
-}
-
-.dash-stop-note {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-brown-light);
-  font-style: italic;
+  margin-top: 10px;
 }
 
 .dash-empty {
   text-align: center;
-  padding: 30px 20px;
+  padding: 24px 16px;
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-brown-light);
 }
 
 .dash-empty-icon {
-  font-size: 36px;
-  margin-bottom: 8px;
+  font-size: 30px;
+  margin-bottom: 6px;
   opacity: 0.4;
 }
 
-.dash-divider {
-  height: 1px;
-  background: var(--kraft);
-  margin: 20px 0;
-}
-
-.dash-form-actions {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 4px;
-}
-
-.dash-placement-active {
-  background: rgba(212, 168, 67, 0.15);
-  border: 1px dashed var(--warm-gold);
-  border-radius: 6px;
-  padding: 8px 12px;
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--warm-gold);
-  margin-bottom: 10px;
-  animation: pulse 2s ease-in-out infinite;
-  text-align: center;
-}
-
-.dash-logout {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px dashed var(--kraft);
-  text-align: center;
-}
+/* ---- Logout ---- */
 
 .dash-logout-btn {
   background: none;
   border: none;
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-brown-light);
   cursor: pointer;
   text-decoration: underline;
   transition: color 0.2s;
+  padding: 4px 8px;
 }
 
 .dash-logout-btn:hover {
   color: var(--stamp-red);
 }
+
+/* ---- Responsive ---- */
 
 @media (max-width: 600px) {
   .dashboard-panel {
@@ -639,21 +803,20 @@
     max-width: none;
   }
 
-  .dashboard-tabs {
-    gap: 2px;
-  }
-
-  .dashboard-tab {
-    padding: 6px 10px 5px;
-    font-size: 13px;
-  }
-
-  .dashboard-tab.active {
-    font-size: 14px;
-    padding: 7px 12px 7px;
-  }
-
   .dash-form-row {
     grid-template-columns: 1fr;
+  }
+
+  .dash-current-city {
+    font-size: 22px;
+  }
+
+  .dash-section {
+    padding: 12px 14px;
+  }
+
+  .dash-section-header {
+    font-size: 18px;
+    padding: 8px 10px;
   }
 }
