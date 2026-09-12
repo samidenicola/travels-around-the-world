@@ -1,0 +1,337 @@
+.passphrase-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3000;
+  background: var(--overlay-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  backdrop-filter: blur(2px);
+}
+
+.passphrase-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.passphrase-card {
+  background: var(--cream);
+  width: 90%;
+  max-width: 380px;
+  border: 2px solid var(--kraft);
+  border-radius: 6px;
+  box-shadow:
+    0 8px 32px var(--shadow-deep),
+    inset 0 0 30px rgba(232, 213, 183, 0.2);
+  position: relative;
+  transform: translateY(20px) rotate(-0.5deg);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  overflow: hidden;
+}
+
+.passphrase-overlay.open .passphrase-card {
+  transform: translateY(0) rotate(-0.5deg);
+  opacity: 1;
+}
+
+.passphrase-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-conic-gradient(
+      rgba(61, 43, 31, 0.015) 0% 25%,
+      transparent 0% 50%
+    ) 0 0 / 3px 3px;
+  pointer-events: none;
+}
+
+.passphrase-card::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 20px;
+  width: 110px;
+  height: 22px;
+  background:
+    repeating-linear-gradient(
+      120deg,
+      transparent 0px,
+      transparent 1px,
+      rgba(255, 255, 255, 0.12) 1px,
+      rgba(255, 255, 255, 0.12) 2px
+    ),
+    var(--washi-purple);
+  opacity: 0.65;
+  border-radius: 2px;
+  transform: rotate(-3deg);
+  z-index: 2;
+}
+
+.passphrase-tape--second {
+  position: absolute;
+  bottom: -2px;
+  right: 16px;
+  width: 100px;
+  height: 20px;
+  background:
+    repeating-linear-gradient(
+      130deg,
+      transparent 0px,
+      transparent 1px,
+      rgba(255, 255, 255, 0.1) 1px,
+      rgba(255, 255, 255, 0.1) 2px
+    ),
+    var(--washi-pink);
+  opacity: 0.55;
+  border-radius: 2px;
+  transform: rotate(2deg);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.passphrase-card--exit {
+  animation: pp-fade-out 0.2s ease-out forwards;
+}
+
+.passphrase-card--enter {
+  animation: pp-fade-in 0.2s ease-out forwards;
+}
+
+@keyframes pp-fade-out {
+  from { opacity: 1; transform: translateY(0) rotate(-0.5deg); }
+  to { opacity: 0; transform: translateY(-8px) rotate(-0.5deg); }
+}
+
+@keyframes pp-fade-in {
+  from { opacity: 0; transform: translateY(8px) rotate(-0.5deg); }
+  to { opacity: 1; transform: translateY(0) rotate(-0.5deg); }
+}
+
+.passphrase-header {
+  padding: 24px 24px 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.passphrase-lock {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--kraft);
+  border-radius: 50%;
+  font-size: 18px;
+}
+
+.passphrase-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--text-brown);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.passphrase-subtitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-brown-light);
+  text-align: center;
+  margin-top: 4px;
+}
+
+.passphrase-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-brown-light);
+  cursor: pointer;
+  padding: 4px 8px;
+  font-family: var(--font-body);
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 3;
+}
+
+.passphrase-close:hover {
+  color: var(--stamp-red);
+  transform: scale(1.1);
+}
+
+.passphrase-form {
+  padding: 12px 24px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.passphrase-field {
+  margin-bottom: 14px;
+}
+
+.passphrase-field label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-brown);
+  margin-bottom: 4px;
+}
+
+.passphrase-field input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--kraft);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-brown);
+  padding: 8px 4px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.passphrase-field input:focus {
+  border-color: var(--sienna);
+}
+
+.passphrase-field input::placeholder {
+  color: var(--kraft);
+  font-style: italic;
+}
+
+.passphrase-field.error input {
+  border-color: var(--stamp-red);
+  animation: shake 0.4s ease;
+}
+
+.passphrase-error {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--stamp-red);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.passphrase-submit {
+  width: 100%;
+  background: var(--sienna);
+  color: white;
+  border: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px var(--shadow-warm);
+}
+
+.passphrase-submit:hover {
+  background: var(--terracotta);
+  transform: scale(1.02);
+}
+
+.passphrase-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.passphrase-submit:focus-visible {
+  outline: 2px solid var(--warm-gold);
+  outline-offset: 2px;
+}
+
+.passphrase-mode-link {
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-brown-light);
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.passphrase-mode-link:hover {
+  color: var(--sienna);
+}
+
+.passphrase-doodle {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  font-size: 24px;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (max-width: 600px) {
+  .passphrase-card {
+    width: 95%;
+    margin: 0 8px;
+  }
+
+  .passphrase-title {
+    font-size: 22px;
+  }
+
+  .passphrase-header {
+    padding: 20px 20px 10px;
+  }
+
+  .passphrase-form {
+    padding: 10px 20px 20px;
+  }
+}
+
+.admin-journal-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 2000;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 2px solid var(--kraft);
+  background: var(--cream);
+  color: var(--sienna);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px var(--shadow-warm);
+  transform: rotate(-2deg) scale(0);
+  transition: transform 0.3s ease-out, box-shadow 0.2s, border-color 0.2s;
+  opacity: 0;
+}
+
+.admin-journal-btn.visible {
+  transform: rotate(-2deg) scale(1);
+  opacity: 1;
+}
+
+.admin-journal-btn:hover {
+  transform: rotate(0deg) scale(1.08);
+  box-shadow: 0 4px 14px var(--shadow-deep);
+  border-color: var(--sienna);
+}
+
+.admin-journal-btn:active {
+  transform: rotate(0deg) scale(0.95);
+}

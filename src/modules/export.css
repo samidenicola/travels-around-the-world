@@ -1,0 +1,106 @@
+.export-panel {
+  margin-top: 8px;
+}
+
+.export-filters {
+  margin-bottom: 20px;
+}
+
+.export-filter-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.export-filter-btn {
+  background: var(--cream);
+  border: 2px dashed var(--kraft);
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-brown-light);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, border-style 0.2s ease, box-shadow 0.2s ease;
+}
+
+.export-filter-btn:nth-child(1) { transform: rotate(-0.8deg); }
+.export-filter-btn:nth-child(2) { transform: rotate(0.6deg); }
+.export-filter-btn:nth-child(3) { transform: rotate(-0.5deg); }
+.export-filter-btn:nth-child(4) { transform: rotate(1deg); }
+
+.export-filter-btn:hover {
+  border-color: var(--sienna);
+  color: var(--text-brown);
+  border-style: solid;
+}
+
+.export-filter-btn.active {
+  background: var(--warm-gold);
+  border-color: var(--warm-gold);
+  border-style: solid;
+  color: white;
+  box-shadow: 0 2px 6px var(--shadow-warm);
+}
+
+.export-filter-input {
+  margin-top: 12px;
+  animation: fadeInUp 0.2s ease-out;
+}
+
+.export-recency-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.export-recency-btn {
+  background: var(--cream);
+  border: 2px dashed var(--kraft);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-brown-light);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, border-style 0.2s ease, box-shadow 0.2s ease;
+}
+
+.export-recency-btn:nth-child(1) { transform: rotate(0.5deg); }
+.export-recency-btn:nth-child(2) { transform: rotate(-0.7deg); }
+.export-recency-btn:nth-child(3) { transform: rotate(0.4deg); }
+
+.export-recency-btn:hover {
+  border-color: var(--warm-gold);
+  border-style: solid;
+  color: var(--text-brown);
+}
+
+.export-recency-btn.active {
+  background: var(--warm-gold);
+  border-color: var(--warm-gold);
+  border-style: solid;
+  color: white;
+  box-shadow: 0 1px 4px var(--shadow-warm);
+}
+
+.export-preview {
+  margin-top: 16px;
+}
+
+.export-count {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-brown-light);
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  background: rgba(232, 213, 183, 0.2);
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.export-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}

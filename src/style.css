@@ -1,0 +1,167 @@
+:root {
+  --cream: #fdf6e3;
+  --cream-dark: #f5ead0;
+  --kraft: #e8d5b7;
+  --sienna: #a0522d;
+  --terracotta: #c75b39;
+  --warm-gold: #d4a843;
+  --warm-gold-light: #f0d68a;
+  --text-brown: #3d2b1f;
+  --text-brown-light: #6b5344;
+  --tape-yellow: #f5e6a3;
+  --tape-yellow-alpha: rgba(245, 230, 163, 0.78);
+  --stamp-red: #c0392b;
+  --washi-purple: #c39bd3;
+  --washi-pink: #f1948a;
+  --washi-blue: #85c1e9;
+  --shadow-warm: rgba(61, 43, 31, 0.15);
+  --shadow-deep: rgba(61, 43, 31, 0.3);
+  --overlay-dim: rgba(61, 43, 31, 0.35);
+  --font-display: 'Caveat', cursive;
+  --font-body: 'Patrick Hand', cursive;
+  --font-ui: 'Inter', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-body);
+  color: var(--text-brown);
+  background: var(--cream);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-conic-gradient(
+      rgba(61, 43, 31, 0.09) 0% 25%,
+      transparent 0% 50%
+    ) 0 0 / 4px 4px;
+  mix-blend-mode: multiply;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-conic-gradient(
+      rgba(160, 82, 45, 0.04) 0% 25%,
+      transparent 0% 50%
+    ) 2px 2px / 6px 6px;
+  mix-blend-mode: multiply;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+::selection {
+  background: var(--tape-yellow);
+  color: var(--text-brown);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--kraft);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sienna);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) rotate(-1deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-3px) rotate(0.5deg); }
+  66% { transform: translateY(-1px) rotate(-0.5deg); }
+}
+
+@keyframes stampIn {
+  0% { transform: scale(2) rotate(-15deg); opacity: 0; }
+  60% { transform: scale(0.9) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 50%, 90% { transform: translateX(-4px); }
+  30%, 70% { transform: translateX(4px); }
+}
+
+@keyframes flyAway {
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translateY(-200px) rotate(15deg) scale(0.5); opacity: 0; }
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes bobFloat {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-6px) rotate(1deg); }
+}
+
+@keyframes tumbleIn {
+  0% { transform: translateY(-30px) rotate(-8deg) scale(0.8); opacity: 0; }
+  60% { transform: translateY(4px) rotate(1deg) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideOutRight {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}

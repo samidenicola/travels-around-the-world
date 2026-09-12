@@ -1,0 +1,303 @@
+.map-pin {
+  position: absolute;
+  pointer-events: auto;
+  transform: translate(-50%, -100%);
+  z-index: 10;
+}
+
+.map-pin--current {
+  z-index: 30;
+}
+
+.map-pin--visited {
+  z-index: 20;
+  transform: translate(-50%, -50%);
+}
+
+.map-pin--stop {
+  z-index: 15;
+  transform: translate(-50%, -50%);
+}
+
+.marker-current {
+  position: relative;
+  width: 44px;
+  height: 56px;
+  cursor: pointer;
+}
+
+.marker-current-pin {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: gentleBounce 3s ease-in-out infinite;
+  filter: drop-shadow(0 3px 6px var(--shadow-deep));
+  will-change: transform;
+  z-index: 2;
+}
+
+.marker-current-pin svg {
+  width: 36px;
+  height: 44px;
+}
+
+.marker-current-ring {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid var(--stamp-red);
+  opacity: 0;
+  animation: pulseRing 2s ease-out infinite;
+  will-change: transform, opacity;
+  z-index: 1;
+}
+
+.marker-current-ring:nth-child(2) {
+  animation-delay: 0.7s;
+}
+
+.marker-current-label {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-brown);
+  background: var(--cream);
+  padding: 1px 8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px var(--shadow-warm);
+  pointer-events: none;
+}
+
+.marker-visited {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.marker-visited:hover {
+  animation: wiggle 0.4s ease-in-out;
+}
+
+.marker-visited-x {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  animation: float 5s ease-in-out infinite;
+  animation-delay: var(--float-delay);
+  filter: drop-shadow(0 2px 3px var(--shadow-warm));
+  will-change: transform;
+}
+
+.marker-visited-x svg {
+  width: 28px;
+  height: 28px;
+}
+
+.marker-visited-watercolor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(199, 91, 57, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.marker-visited-label {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-brown);
+  background: rgba(253, 246, 227, 0.9);
+  padding: 0px 6px;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px var(--shadow-warm);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.marker-visited:hover .marker-visited-label {
+  opacity: 1;
+}
+
+.marker-stop {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  animation: bobFloat 4s ease-in-out infinite;
+  animation-delay: var(--bob-delay, 0s);
+  transition: filter 0.3s ease, transform 0.3s ease;
+  will-change: transform;
+}
+
+.marker-stop:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 8px rgba(212, 168, 67, 0.45));
+}
+
+.marker-stop-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.75;
+  transition: opacity 0.3s;
+}
+
+.marker-stop:hover .marker-stop-icon {
+  opacity: 1;
+}
+
+.marker-stop-icon svg {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 2px 4px var(--shadow-warm));
+}
+
+.marker-stop-label {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--warm-gold);
+  background: rgba(253, 246, 227, 0.9);
+  padding: 0px 6px;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px var(--shadow-warm);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.marker-stop:hover .marker-stop-label {
+  opacity: 1;
+}
+
+.map-container.placement-mode {
+  cursor: crosshair;
+}
+
+.map-context-menu {
+  position: absolute;
+  z-index: 200;
+  background: var(--cream);
+  border: 2px solid var(--kraft);
+  border-radius: 8px;
+  padding: 8px 0;
+  box-shadow: 0 4px 16px var(--shadow-warm), 0 1px 3px var(--shadow-deep);
+  min-width: 170px;
+  animation: tumbleIn 0.25s ease-out;
+  pointer-events: auto;
+}
+
+.map-context-menu::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  pointer-events: none;
+  background:
+    repeating-conic-gradient(
+      rgba(61, 43, 31, 0.015) 0% 25%,
+      transparent 0% 50%
+    ) 0 0 / 3px 3px;
+}
+
+.map-context-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-brown);
+  padding: 4px 14px 8px;
+  border-bottom: 1px dashed var(--kraft);
+  margin-bottom: 4px;
+}
+
+.map-context-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-brown);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.map-context-option:hover {
+  background: var(--cream-dark);
+  color: var(--sienna);
+}
+
+.map-context-option[data-type="current"]::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: var(--stamp-red);
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.map-context-option[data-type="visited"]::before {
+  content: 'x';
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--terracotta);
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.map-context-option[data-type="stop"]::before {
+  content: '?';
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--warm-gold);
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(var(--rot, 0deg)); }
+  25% { transform: rotate(calc(var(--rot, 0deg) + 8deg)); }
+  75% { transform: rotate(calc(var(--rot, 0deg) - 8deg)); }
+}
