@@ -203,20 +203,21 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background: none;
-  border: none;
+  background: rgba(232, 213, 183, 0.2);
+  border: 1px solid rgba(200, 180, 150, 0.3);
   cursor: pointer;
-  padding: 10px 14px;
+  padding: 12px 14px;
   border-radius: 8px;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 20px;
   color: var(--text-brown);
-  transition: background 0.2s;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .dash-section-header:hover {
-  background: rgba(232, 213, 183, 0.25);
+  background: rgba(232, 213, 183, 0.4);
+  border-color: rgba(200, 180, 150, 0.5);
 }
 
 .dash-section-header-text {
@@ -457,15 +458,46 @@
   margin-bottom: 12px;
 }
 
+.dash-notes-search {
+  position: relative;
+}
+
+.dash-notes-search::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: none;
+  border: 2px solid var(--text-brown-light);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.dash-notes-search::after {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: calc(50% + 6px);
+  width: 2px;
+  height: 6px;
+  background: var(--text-brown-light);
+  transform: rotate(-45deg);
+  transform-origin: top;
+}
+
 .dash-notes-search-input {
   width: 100%;
   border: none;
   border-bottom: 2px solid var(--kraft);
   background: transparent;
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 600;
   color: var(--text-brown);
-  padding: 8px 4px;
+  padding: 10px 8px 10px 34px;
   outline: none;
   transition: border-color 0.3s;
 }
@@ -475,8 +507,9 @@
 }
 
 .dash-notes-search-input::placeholder {
-  color: var(--kraft);
+  color: var(--text-brown-light);
   font-style: italic;
+  font-weight: 400;
 }
 
 .dash-note-card {
@@ -499,7 +532,7 @@
   --rot: 0.5deg;
 }
 
-.dash-note-card:nth-child(odd)::before {
+.dash-note-card::before {
   content: '';
   position: absolute;
   top: -4px;
@@ -512,35 +545,16 @@
     0 1px 3px var(--shadow-warm),
     inset 0 -1px 2px rgba(0, 0, 0, 0.15);
   z-index: 2;
-  transform: rotate(-8deg);
 }
 
-.dash-note-card:nth-child(even)::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  right: 14px;
+.dash-note-card:nth-child(2n)::before {
+  background: var(--warm-gold);
   left: auto;
-  width: 14px;
-  height: 20px;
-  border: 2px solid #888;
-  border-radius: 2px 8px 8px 2px;
-  background: linear-gradient(135deg, #d0d0d0 0%, #a8a8a8 100%);
-  z-index: 2;
-  transform: rotate(5deg);
-  clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 60% 70%, 60% 100%, 0% 100%);
+  right: 14px;
 }
 
 .dash-note-card:nth-child(3n)::before {
-  background: var(--warm-gold);
-  box-shadow:
-    0 1px 3px var(--shadow-warm),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.15);
-}
-
-.dash-note-card:nth-child(4n)::before {
-  background: linear-gradient(135deg, #c9b896 0%, #a89878 100%);
-  border-color: #9a8a6a;
+  background: var(--sienna);
 }
 
 .dash-note-author {
