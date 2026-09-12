@@ -34,7 +34,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 36px;
-  height: 44px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,16 +46,16 @@
 
 .marker-current-pin svg {
   width: 36px;
-  height: 44px;
+  height: 52px;
 }
 
 .marker-current-ring {
   position: absolute;
-  bottom: 0;
+  top: 15px;
   left: 50%;
-  transform: translate(-50%, 0);
-  width: 20px;
-  height: 20px;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 3px solid var(--stamp-red);
   opacity: 0;
@@ -106,7 +106,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 24px;
-  height: 32px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +116,7 @@
 
 .marker-visited-pin svg {
   width: 24px;
-  height: 32px;
+  height: 36px;
 }
 
 .marker-visited-label {
@@ -166,7 +166,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 24px;
-  height: 32px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,7 +175,7 @@
 
 .marker-stop-pin svg {
   width: 24px;
-  height: 32px;
+  height: 36px;
 }
 
 .marker-stop-label {

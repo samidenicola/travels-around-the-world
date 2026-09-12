@@ -94,10 +94,39 @@
 /* ---- Top bar ---- */
 
 .dashboard-top {
-  padding: 20px 20px 16px;
+  padding: 20px 20px 0;
   position: relative;
   z-index: 1;
   border-bottom: 2px solid var(--kraft);
+}
+
+.dash-tabs {
+  display: flex;
+  gap: 0;
+  margin-top: 14px;
+}
+
+.dash-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--text-brown-light);
+  padding: 10px 8px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.dash-tab:hover {
+  color: var(--text-brown);
+}
+
+.dash-tab.active {
+  color: var(--sienna);
+  border-bottom-color: var(--sienna);
 }
 
 .dashboard-title-row {

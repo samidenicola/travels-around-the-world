@@ -7,7 +7,8 @@ import { enablePlacementMode, disablePlacementMode, renderMarkers } from './mark
 
 let overlay = null
 let pendingPlacement = null
-let expandedSections = { visited: true, stops: true, notes: false, exportSection: false }
+let activeTab = 'notes'
+let expandedSections = { visited: true, stops: true, notes: true, exportSection: false }
 
 export function initDashboard(container) {
   overlay = document.createElement('div')
@@ -54,6 +55,10 @@ function renderDashboard() {
           <button class="dashboard-close" aria-label="Close">&times;</button>
         </div>
       </div>
+      <div class="dash-tabs">
+        <button class="dash-tab ${activeTab === 'notes' ? 'active' : ''}" data-tab="notes">postcards</button>
+        <button class="dash-tab ${activeTab === 'locations' ? 'active' : ''}" data-tab="locations">update location</button>
+      </div>
     </div>
     <div class="dashboard-content" id="dash-content"></div>
   `
@@ -65,12 +70,22 @@ function renderDashboard() {
     closeDashboard()
   })
 
+  panel.querySelectorAll('.dash-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      activeTab = tab.dataset.tab
+      renderDashboard()
+    })
+  })
+
   const content = panel.querySelector('#dash-content')
-  renderCurrentSection(content)
-  renderVisitedSection(content)
-  renderStopsSection(content)
-  renderNotesSection(content)
-  renderExportSection(content)
+  if (activeTab === 'notes') {
+    renderNotesSection(content)
+    renderExportSection(content)
+  } else {
+    renderCurrentSection(content)
+    renderVisitedSection(content)
+    renderStopsSection(content)
+  }
 }
 
 function startPlacement(formType, container) {
@@ -299,6 +314,7 @@ function renderVisitedSection(container) {
           <div class="dash-visited-edit-status"></div>
         </div>
         <div class="dash-visited-actions">
+          <button class="dash-btn dash-btn--small dash-btn--arrive dash-visited-here-btn">we're here!</button>
           <button class="dash-btn dash-btn--small dash-btn--secondary dash-visited-edit-btn">edit</button>
           <button class="dash-btn dash-btn--small dash-btn--secondary dash-visited-photo-btn">add photos</button>
           <button class="dash-btn dash-btn--small dash-btn--danger dash-visited-remove-btn">remove</button>
@@ -338,6 +354,24 @@ function renderVisitedSection(container) {
           statusEl.innerHTML = `<div class="dash-error">${escapeHtml(err.message || 'failed')}</div>`
           btn.disabled = false
           btn.textContent = 'save'
+        }
+      })
+
+      card.querySelector('.dash-visited-here-btn').addEventListener('click', async () => {
+        const btn = card.querySelector('.dash-visited-here-btn')
+        btn.disabled = true
+        btn.textContent = 'moving...'
+        try {
+          // Update current location to this visited place (toggle, no duplicate)
+          await adminAction('update_location', state.passphrase, {
+            data: { city: place.city, country: place.country, x_pct: place.x_pct, y_pct: place.y_pct }
+          })
+          const freshData = await getPublicData()
+          update('currentLocation', freshData.currentLocation)
+          renderDashboard()
+        } catch (err) {
+          btn.disabled = false
+          btn.textContent = "we're here!"
         }
       })
 

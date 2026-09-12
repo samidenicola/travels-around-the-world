@@ -41,8 +41,7 @@ function renderForm() {
       <div class="note-stamp">Air<br/>Mail</div>
       <div class="note-postcard-header">
         <button class="note-postcard-close" aria-label="Close">&times;</button>
-        <div class="note-postcard-title">Send a postcard</div>
-        <div class="note-postcard-subtitle">drop them a note wherever they are</div>
+        <div class="note-postcard-title" style="font-size: 32px;">Send a postcard</div>
       </div>
       <form class="note-postcard-form" id="note-form">
         <div class="note-context">they're currently in ${escapeHtml(context)}</div>

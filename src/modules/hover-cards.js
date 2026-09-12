@@ -175,15 +175,10 @@ export function showHoverCard(data, type, point, pin = false) {
     }
     body.innerHTML = html
   } else if (type === 'stop') {
-    let html = `
+    body.innerHTML = `
       <div class="hover-card-city">${escapeHtml(data.city)}</div>
       <div class="hover-card-country">${escapeHtml(data.country)}</div>
     `
-    if (data.note) {
-      html += `<div class="hover-card-note">"${escapeHtml(data.note)}"</div>`
-    }
-    html += '<div class="hover-card-maybe">maybe next?</div>'
-    body.innerHTML = html
   }
 
   card.appendChild(body)
