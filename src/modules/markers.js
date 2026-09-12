@@ -6,23 +6,23 @@ import { escapeHtml } from '../utils.js'
 
 const rotations = [-3, 1, -1.5, 2.5, -0.5, 3, -2, 1.5]
 
-const PIN_SVG_CURRENT = `<svg viewBox="0 0 36 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <line x1="18" y1="20" x2="18" y2="51" stroke="#b0b0b0" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="18" cy="15" r="14.5" fill="#c0392b"/>
-  <circle cx="14" cy="10" r="4" fill="#e74c3c" opacity="0.4"/>
-  <circle cx="18" cy="15" r="5" fill="#fdf6e3" opacity="0.3"/>
+const PIN_SVG_CURRENT = `<svg viewBox="0 0 40 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <line x1="20" y1="22" x2="20" y2="57" stroke="#a0a0a0" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="20" cy="16" r="15.5" fill="#c0392b"/>
+  <circle cx="15" cy="10" r="4.5" fill="#e74c3c" opacity="0.45"/>
+  <circle cx="20" cy="16" r="5.5" fill="#fdf6e3" opacity="0.3"/>
 </svg>`
 
 const PIN_SVG_VISITED = `<svg viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <line x1="12" y1="14" x2="12" y2="35" stroke="#b0b0b0" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="12" cy="11" r="10.5" fill="#d4874d"/>
-  <circle cx="9" cy="7.5" r="3" fill="#dea060" opacity="0.35"/>
+  <line x1="12" y1="14" x2="12" y2="35" stroke="#a8a8a8" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="12" cy="11" r="10.5" fill="#cc7722"/>
+  <circle cx="9" cy="7.5" r="3" fill="#e8943a" opacity="0.4"/>
 </svg>`
 
 const PIN_SVG_STOP = `<svg viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <line x1="12" y1="14" x2="12" y2="35" stroke="#b0b0b0" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 2"/>
-  <circle cx="12" cy="11" r="10.5" fill="#9ba8b7"/>
-  <circle cx="9" cy="7.5" r="3" fill="#aab5c2" opacity="0.3"/>
+  <line x1="12" y1="14" x2="12" y2="35" stroke="#a8a8a8" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 2"/>
+  <circle cx="12" cy="11" r="10.5" fill="#4a9ea6"/>
+  <circle cx="9" cy="7.5" r="3" fill="#6bbac2" opacity="0.35"/>
 </svg>`
 
 let placementMode = null

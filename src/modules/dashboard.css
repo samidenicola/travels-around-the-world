@@ -257,11 +257,11 @@
 /* ---- Accent colors for sections ---- */
 
 .dash-accent--visited {
-  border-left: 3px solid rgba(200, 136, 77, 0.5);
+  border-left: 3px solid rgba(204, 119, 34, 0.55);
 }
 
 .dash-accent--stops {
-  border-left: 3px solid rgba(155, 168, 183, 0.5);
+  border-left: 3px solid rgba(74, 158, 166, 0.55);
 }
 
 .dash-accent--notes {
@@ -331,8 +331,8 @@
 
 .dash-visited-card {
   background: var(--cream);
-  border: 1px solid rgba(200, 136, 77, 0.3);
-  border-left: 3px solid rgba(200, 136, 77, 0.5);
+  border: 1px solid rgba(204, 119, 34, 0.3);
+  border-left: 3px solid rgba(204, 119, 34, 0.55);
   border-radius: 6px;
   padding: 12px 14px;
   margin-bottom: 10px;
@@ -407,8 +407,8 @@
 
 .dash-stop-card {
   background: var(--cream);
-  border: 1px dashed rgba(155, 168, 183, 0.5);
-  border-left: 3px solid rgba(155, 168, 183, 0.5);
+  border: 1px dashed rgba(74, 158, 166, 0.5);
+  border-left: 3px solid rgba(74, 158, 166, 0.5);
   border-radius: 6px;
   padding: 12px 14px;
   margin-bottom: 10px;
@@ -730,7 +730,7 @@
   display: block;
   width: 100%;
   background: none;
-  border: 2px dashed rgba(155, 168, 183, 0.5);
+  border: 2px dashed rgba(74, 158, 166, 0.5);
   color: var(--text-brown-light);
   font-family: var(--font-body);
   font-size: 15px;
@@ -742,8 +742,8 @@
 }
 
 .dash-btn--add:hover {
-  background: rgba(155, 168, 183, 0.08);
-  border-color: rgba(155, 168, 183, 0.7);
+  background: rgba(74, 158, 166, 0.08);
+  border-color: rgba(74, 158, 166, 0.7);
   color: var(--text-brown);
 }
 

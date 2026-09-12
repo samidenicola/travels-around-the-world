@@ -7,15 +7,21 @@ export function getMapContainer() {
 }
 
 const LEGEND_PIN_CURRENT = `<svg viewBox="0 0 20 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <line x1="10" y1="12" x2="10" y2="29" stroke="#b0b0b0" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="10" y1="12" x2="10" y2="29" stroke="#a0a0a0" stroke-width="2.5" stroke-linecap="round"/>
   <circle cx="10" cy="9" r="8.5" fill="#c0392b"/>
-  <circle cx="7.5" cy="6" r="2.5" fill="#e74c3c" opacity="0.35"/>
+  <circle cx="7.5" cy="6" r="2.5" fill="#e74c3c" opacity="0.4"/>
 </svg>`
 
 const LEGEND_PIN_VISITED = `<svg viewBox="0 0 20 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <line x1="10" y1="12" x2="10" y2="29" stroke="#b0b0b0" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="10" cy="9" r="8.5" fill="#d4874d"/>
-  <circle cx="7.5" cy="6" r="2.5" fill="#dea060" opacity="0.3"/>
+  <line x1="10" y1="12" x2="10" y2="29" stroke="#a8a8a8" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="10" cy="9" r="8.5" fill="#cc7722"/>
+  <circle cx="7.5" cy="6" r="2.5" fill="#e8943a" opacity="0.35"/>
+</svg>`
+
+const LEGEND_PIN_STOP = `<svg viewBox="0 0 20 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <line x1="10" y1="12" x2="10" y2="29" stroke="#a8a8a8" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 2"/>
+  <circle cx="10" cy="9" r="8.5" fill="#4a9ea6"/>
+  <circle cx="7.5" cy="6" r="2.5" fill="#6bbac2" opacity="0.3"/>
 </svg>`
 
 export function initMapSurface(container) {

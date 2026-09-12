@@ -285,7 +285,7 @@
 }
 
 .hover-card--stop {
-  border: 2px dashed rgba(155, 168, 183, 0.6);
+  border: 2px dashed rgba(74, 158, 166, 0.55);
   opacity: 0.92;
   clip-path: polygon(
     0% 0%,
@@ -307,13 +307,13 @@
 }
 
 .hover-card--stop .hover-card-city {
-  color: #7a8999;
+  color: #3d8a91;
 }
 
 .hover-card--stop .hover-card-maybe {
   font-family: var(--font-display);
   font-size: 13px;
-  color: #9ba8b7;
+  color: #4a9ea6;
   margin-top: 6px;
   opacity: 0.8;
 }
