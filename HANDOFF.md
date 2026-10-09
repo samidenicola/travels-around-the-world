@@ -54,7 +54,7 @@ supabase/
   *.sql                     Migration scripts (add columns, fix permissions, etc.)
 vercel.json                 SPA rewrite rule
 .github/workflows/
-  keep-alive.yml            Pings Supabase every 5 days to prevent free-tier hibernation
+  keep-alive.yml            Queries Supabase twice daily to prevent free-tier hibernation
 ```
 
 ## Supabase Setup
@@ -151,4 +151,4 @@ gh repo add-collaborator USERNAME --repo samidenicola/travels-around-the-world
 
 ## Keep-Alive
 
-The GitHub Action `.github/workflows/keep-alive.yml` pings Supabase every 5 days to prevent the free-tier project from hibernating. Requires a `SUPABASE_ANON_KEY` repo secret in GitHub repo settings (Settings > Secrets > Actions).
+The GitHub Action `.github/workflows/keep-alive.yml` queries a real table twice a day (03:17 and 15:17 UTC) to prevent the free-tier project from hibernating, and fails loudly if it can't reach it. (Oct 2026: the old every-5-days ping let the project pause; once paused, the hostname stops resolving, which is curl exit code 6.) It also runs `gautamkrishnar/keepalive-workflow` so GitHub doesn't disable the schedule after 60 days without commits in this public repo. Requires a `SUPABASE_ANON_KEY` repo secret in GitHub repo settings (Settings > Secrets > Actions).
