@@ -1,4 +1,4 @@
-# Travels Around the World -- Developer Handoff
+# Travels Around the World
 
 A scrapbook-style illustrated travel map for Marlowe & Sebastien's trip around the world. Visitors see an illustrated world map with animated pins showing where they are now, where they've been, and where they might go next. Friends and family can leave notes. Marlowe manages everything through a hidden admin dashboard (no login page -- secret keyboard shortcut).
 
